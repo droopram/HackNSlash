@@ -10,14 +10,54 @@ class MeController extends Zend_Controller_Action
 
     public function getEventsAction()
     {
-		//get user
-		//give data -> Timeline met timestamps
+    	$user = $this->getUser();
+    	if($user != null)
+    	{
+			$eventTable = new Application_Model_DbTable_Events();
+			$data = array();
+			$eventObj = $eventTable->find($user->bsn)->current();
+			foreach ($eventObj as $event)
+			{
+				$dataRow = array();
+				$dataRow['short_desc'] = $event->short_desc;
+				$dataRow['desc'] = $event->desc;
+				$dataRow['date'] = $event->date;
+				array_push($data, $dataRow);	
+			}
+			$data = array('status' => 'SUCCES', 'message'=>$data);
+			echo $this->_helper->json($data);
+			exit();
+    	}
     }
 
     public function getDataAction()
     {
-		//get user
-		//give data -> KVK
+		$user = $this->getUser();
+		if($user != NULL)
+		{
+			$eventTable = new Application_Model_DbTable_Kvk();
+			$data = array();
+			$kvkObj = $eventTable->find($user->bsn)->current();
+			foreach ($kvkObj as $kvk)
+			{
+				$dataRow = array();
+				$dataRow['kvk'] = $kvk->kvk;
+				$dataRow['bedrijfsnaam'] = $kvk->bedrijfsnaam;
+				$dataRow['adres'] = $kvk->adres;
+				$dataRow['postcode'] = $kvk->postcode;
+				$dataRow['plaats'] = $kvk->plaats;
+				$dataRow['type'] = $kvk->type;
+				$dataRow['status'] = $kvk->status;
+				$dataRow['website'] = $kvk->website;
+				$dataRow['rechtsvorm'] = $kvk->rechtsvorm;
+ 				array_push($data, $dataRow);
+			}
+			$data = array('status'=>'SUCCES', 'message'=>$data);
+			echo $this->_helper->json($data);	
+			exit();
+		}
+		
+		
     }
 	
 	/*
