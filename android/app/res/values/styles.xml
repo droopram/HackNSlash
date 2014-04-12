@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="input_pincode">
+
+        <item name="android:inputType">numberPassword</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:hint">@string/pincode_hint</item>
+        <item name="android:maxLength">@integer/max_pincode_length</item>
+
+    </style>
+
+</resources>
