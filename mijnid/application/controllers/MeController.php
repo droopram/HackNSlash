@@ -62,8 +62,6 @@ class MeController extends Zend_Controller_Action
 			}
 			echo $this->_helper->json($data);	
 			exit();
-		
-		
     }
 	
 	/*
