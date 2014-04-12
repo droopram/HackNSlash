@@ -48,16 +48,65 @@ class MeController extends Zend_Controller_Action {
 		$letterTable = new Application_Model_DbTable_Brieven ();
 		$passportTable = new Application_Model_DbTable_Passport ();
 		$gbaTable = new Application_Model_DbTable_Gba ();
-		
+		$overheidTable = new Application_Model_DbTable_OverheidGba();
+		$eventTable =new Application_Model_DbTable_Events();
 		/*
 		 * Getting the local user data
 		 */
-		$userObj = $gbaTable->fetchAll($gbaTable->select()->where("bsn = ?", $user->bsn));
+		$userObj = $gbaTable->find($user->bsn)->current();
 		
-		if ($userObj != null) {
+		if ($userObj == null) {
 			/*
 			 * If user object doesn't exist get the user object from "gemeente burgerschap administratie"
 			 */
+			
+			$userObj = $overheidTable->find($user->bsn)->current();
+			
+			$userRow = $gbaTable->createRow();
+			$userRow->bsn = $userObj->bsn;
+			$userRow->voornaam = $userObj->voornaam;
+			$userRow->achternaam = $userObj->achternaam;
+			$userRow->geslacht = $userObj->geslacht;
+			$userRow->nationaliteit = $userObj->nationaliteit;
+			$userRow->gemeente = $userObj->gemeente;
+			$userRow->straat = $userObj->straat;
+			$userRow->huisnummer = $userObj->huisnummer;
+			$userRow->huisletter= $userObj->huisletter;
+			$userRow->huisnummer_toevoeging = $userObj->huisnummer_toevoeging;
+			$userRow->buitenland_adres_1 = $userObj->buitenland_adres_1;
+			$userRow->buitenland_adres_2 = $userObj->buitenland_adres_2;
+			$userRow->buitenland_adres_3 = $userObj->buitenland_adres_3;
+			$userRow->save();
+		}
+		else
+		{
+			/*
+			 * check if everything is the same, if not add an event
+			 */
+			
+			$overheidusrObj = $overheidTable->find($user->bsn)->current();
+			
+			$userArr = $userObj->toArray();
+			$govUserArr = $overheidusrObj->toArray();
+			
+			$diff = array_diff($govUserArr, $userArr);
+			if(!empty($diff))
+			{
+				foreach ($diff as $k=>$v)
+				{
+					$newEvent = $eventTable->createRow();
+					$newEvent->bsn = $user->bsn;
+					$newEvent->short_desc = ucfirst($k)." is veranderd.";
+					$newEvent->desc = ucfirst($k)." is veranderd naar ".$v.".";
+					$newEvent->date = date('Y-m-d H:i:s');
+					$newEvent->save();
+					
+					$userObj->$k = $v;
+					$userObj->save();
+				}
+			}
+			
+			
 		}
 		
 		$letterObj = $letterTable->fetchAll($letterTable->select()->where("bsn = ?", $user->bsn));
@@ -82,7 +131,16 @@ class MeController extends Zend_Controller_Action {
 				$dataRow = array();
 				$dataRow['documentnr'] = $passport->documentnr;
 				$dataRow['vervaldatum'] = $passport->vervaldatum;
-				$dataRow['kvknummer'] = $passport->kvknummer;
+				
+				$kvkjson = Zend_Json::decode(file_get_contents("http://officieel.openkvk.nl/json/".$passport->kvknummer));
+				$dataRow['instantie'] = array(
+					"naam"=> $kvkjson[0]['rechtspersoon'],
+					"adres"=> $kvkjson[0]['adres'],
+					"woonplaats"=>$kvkjson[0]['woonplaats'],
+					"postcode"=>$kvkjson[0]['postcode'],
+					"kvknummer"=>$kvkjson[0]['kvks'],
+				);
+		
 				$dataRow['ontvangen'] = $passport->ontvangen;
 				$dataRow['beschrijving'] = $passport->beschrijving;
 				array_push($passportData, $dataRow);
@@ -118,7 +176,12 @@ class MeController extends Zend_Controller_Action {
 		
 		$data = array (
 				'status' => 'SUCCES',
-				'message' => $data, 
+				'message' => array(
+					'User'=>$userData,
+					'kvkdata'=>$kvkData,
+					'letters'=>$letterData,
+					'passporten'=>$passportData,
+		) 
 		);
 		
 		echo $this->_helper->json ( $data );
