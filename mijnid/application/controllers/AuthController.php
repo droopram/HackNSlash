@@ -15,7 +15,8 @@ class AuthController extends Zend_Controller_Action
 		$json = Zend_Json::decode($raw);
 		$pin = $json['pin'];
 		$device_id = $json['device_id'];
-		if(!isset($pin) || !isset($device_id)){
+		$registrant_id = $json['registrant_id'];
+		if(!isset($pin) || !isset($device_id) || !isset($registrant_id)){
 			$this->getResponse()->setHttpResponseCode(400);
 			$data = array('status'=>'FAILED','message'=>'NO_DATA_PROVIDED');
 			echo $this->_helper->json($data);
@@ -36,6 +37,7 @@ class AuthController extends Zend_Controller_Action
 		$skey = $this->generateKey();
 		//Save the users secret key for this session.
 		$user->secret_key = $skey;
+		$user->registrant_id = $registrant_id;
 		$user->save();
 		
 		//Let the api consumer know it worked.		
