@@ -128,21 +128,19 @@ class MeController extends Zend_Controller_Action {
 	/*
 	 * Params: POST skey, The secret key Return: user object on success, exit on failure.
 	 */
-	private function getUser() {
-		$skey = $this->getRequest ()->getPost ( 'skey' );
-		$authTable = new Application_Model_DbTable_Auth ();
-		$user = $authTable->fetchRow ( $authTable->select ()->where ( 'secret_key=?', $skey ) );
-		
-		if ($user != null)
+	private function getUser(){
+		$raw = $this->getRequest()->getRawBody();
+		$json = Zend_Json::decode($raw);
+		$skey = $json['skey'];
+		$authTable = new Application_Model_DbTable_Auth();
+		$user = $authTable->fetchRow($authTable->select()->where('secret_key=?',$skey));
+		if($user!=null)
 			return $user;
 		else {
-			$this->getResponse ()->setHttpResponseCode ( 400 );
-			$data = array (
-					'status' => 'FAILED',
-					'message' => 'INVALID_REQUEST' 
-			);
-			echo $this->_helper->json ( $data );
-			exit ();
+			$this->getResponse()->setHttpResponseCode(400);
+			$data = array('status'=>'FAILED','message'=>'INVALID_REQUEST');
+			echo $this->_helper->json($data);
+			exit();
 		}
 	}
 }
