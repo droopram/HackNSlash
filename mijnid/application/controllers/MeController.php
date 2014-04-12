@@ -38,7 +38,7 @@ class MeController extends Zend_Controller_Action {
 		$letterData = array ();
 		$userData = array ();
 		$kvkData = array ();
-		
+		$data = array();
 		/* Getting the userobject */
 		$user = $this->getUser ();
 		/*
@@ -52,7 +52,7 @@ class MeController extends Zend_Controller_Action {
 		/*
 		 * Getting the local user data
 		 */
-		$userObj = $gbaTable->find ( $user->bsn )->current ();
+		$userObj = $gbaTable->fetchAll($gbaTable->select()->where("bsn = ?", $user->bsn));
 		
 		if ($userObj != null) {
 			/*
@@ -60,7 +60,7 @@ class MeController extends Zend_Controller_Action {
 			 */
 		}
 		
-		$letterObj = $letterTable->find ( $user->bsn )->current ();
+		$letterObj = $letterTable->fetchAll($letterTable->select()->where("bsn = ?", $user->bsn));
 		if ($letterObj != null) {
 			foreach ( $letterObj as $letter ) {
 				$dataRow = array();
@@ -74,7 +74,7 @@ class MeController extends Zend_Controller_Action {
 			}
 		}
 		
-		$passportObj = $passportTable->find($user->bsn)->current();
+		$passportObj = $passportTable->fetchAll($passportTable->select()->where("bsn = ?", $user->bsn));
 		if($passportObj != null)
 		{
 			foreach ($passportObj as $passport)
@@ -94,7 +94,7 @@ class MeController extends Zend_Controller_Action {
 		
 		
 		
-		$kvkObj = $kvkTable->find ( $user->bsn )->current ();
+		$kvkObj = $kvkTable->fetchAll($kvkTable->select()->where("bsn = ?", $user->bsn));
 		if ($kvkObj != null) {
 			foreach ( $kvkObj as $kvk ) {
 				$dataRow = array ();
