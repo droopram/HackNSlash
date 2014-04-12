@@ -26,10 +26,12 @@ class MeController extends Zend_Controller_Action
 	*/	
 	private function getUser(){
 		$skey = $this->getRequest()->getPost('skey');
-		//$user = $usertable->fetchRow($usertable->select()->where('skey=?',$skey));
+		$authTable = new Application_Model_DbTable_Auth();
+		$user = $authTable->fetchRow($authTable->select()->where('secret_key=?',$skey));
 		if($user!=null)
 			return $user;
 		else {
+			$this->getResponse()->setHttpResponseCode(400);
 			$data = array('status'=>'FAILED','message'=>'INVALID_REQUEST');
 			echo $this->_helper->json($data);
 			exit();
