@@ -16,7 +16,7 @@ class AuthController extends Zend_Controller_Action
 		$pin = $json['pin'];
 		$device_id = $json['device_id'];
 		$registrant_id = $json['registrant_id'];
-		if(!isset($pin) || !isset($device_id)){
+		if(!isset($pin) || !isset($device_id) || !isset($registrant_id)){
 			$this->getResponse()->setHttpResponseCode(400);
 			$data = array('status'=>'FAILED','message'=>'NO_DATA_PROVIDED');
 			echo $this->_helper->json($data);
