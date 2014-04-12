@@ -10,12 +10,11 @@ class MeController extends Zend_Controller_Action
 
     public function getEventsAction()
     {
-    	$user = $this->getUser();
-    	if($user != null)
-    	{
+   		 	$user = $this->getUser();
 			$eventTable = new Application_Model_DbTable_Events();
 			$data = array();
 			$eventObj = $eventTable->find($user->bsn)->current();
+			if($eventObj != null){
 			foreach ($eventObj as $event)
 			{
 				$dataRow = array();
@@ -25,19 +24,22 @@ class MeController extends Zend_Controller_Action
 				array_push($data, $dataRow);	
 			}
 			$data = array('status' => 'SUCCES', 'message'=>$data);
+			}else
+			{
+			$data = array('status' => 'SUCCES', 'message'=>'no data');
+			}
 			echo $this->_helper->json($data);
 			exit();
-    	}
+    	
     }
 
     public function getDataAction()
     {
 		$user = $this->getUser();
-		if($user != NULL)
-		{
 			$eventTable = new Application_Model_DbTable_Kvk();
 			$data = array();
 			$kvkObj = $eventTable->find($user->bsn)->current();
+			if($kvkObj != null){
 			foreach ($kvkObj as $kvk)
 			{
 				$dataRow = array();
@@ -53,9 +55,13 @@ class MeController extends Zend_Controller_Action
  				array_push($data, $dataRow);
 			}
 			$data = array('status'=>'SUCCES', 'message'=>$data);
+			}
+			else
+			{
+				$data = array('status'=>'SUCCES', 'message'=>'no data');
+			}
 			echo $this->_helper->json($data);	
 			exit();
-		}
 		
 		
     }
