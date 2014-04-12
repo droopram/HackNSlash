@@ -8,8 +8,8 @@ import nl.antifraude.mijnid.provider.Contract;
 /**
  */
 @DatabaseTable(tableName = Contract.Event.ENTITY_NAME)
-@AdditionalAnnotation.DefaultContentUri(authority = Contract.AUTHORITY, path = Contract.Event.CONTENT_URI.toString())
-@AdditionalAnnotation.DefaultContentMimeTypeVnd(name = Contract.Event.MIME_NAME, type = Contract.Event.MIME_TYPE)
+@AdditionalAnnotation.DefaultContentUri(authority = Contract.AUTHORITY, path = Contract.Event.ENTITY_NAME)
+@AdditionalAnnotation.DefaultContentMimeTypeVnd(name = Contract.MIME_NAME, type = Contract.Event.MIME_TYPE)
 public class Event {
 
     @DatabaseField(generatedId = true, columnName = Contract.Event._ID)

@@ -6,6 +6,7 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import nl.antifraude.mijnid.model.Event;
+import nl.antifraude.mijnid.model.User;
 
 import java.sql.SQLException;
 
@@ -25,6 +26,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
         try {
             TableUtils.createTableIfNotExists(connectionSource, Event.class);
+            TableUtils.createTableIfNotExists(connectionSource, User.class);
         } catch (SQLException e) {
             throw new Error(e);
         }
@@ -35,7 +37,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         // clear all data and setup new table versions
         try {
             TableUtils.dropTable(connectionSource, Event.class, true);
+            TableUtils.dropTable(connectionSource, User.class, true);
             TableUtils.createTable(connectionSource, Event.class);
+            TableUtils.createTable(connectionSource, User.class);
         } catch (SQLException e) {
             throw new Error(e);
         }

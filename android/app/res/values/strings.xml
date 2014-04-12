@@ -3,4 +3,7 @@
     <string name="app_name">Mijn ID</string>
     <string name="pincode_hint">Uw pincode</string>
     <string name="login_submit_text">Log in</string>
+    <string name="play_services_not_installed_toast">Installeer Google Play Services.</string>
+    <string name="login_failed_toast">001 - Login mislukt!</string>
+    <string name="login_failed_parse_error_toast">002 - Login mislukt!</string>
 </resources>
