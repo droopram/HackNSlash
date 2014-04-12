@@ -7,7 +7,7 @@ class MeController extends Zend_Controller_Action {
 		$user = $this->getUser ();
 		$eventTable = new Application_Model_DbTable_Events ();
 		$data = array ();
-		$eventObj = $eventTable->find ( $user->bsn )->current ();
+		$eventObj = $eventTable->fetchAll($eventTable->select()->where('bsn = ?', $user->bsn));
 		if ($eventObj != null) {
 			foreach ( $eventObj as $event ) {
 				$dataRow = array ();
