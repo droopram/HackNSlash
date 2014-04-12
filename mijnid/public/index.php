@@ -1,4 +1,5 @@
 <?php
+define("GOOGLE_API_KEY", "BIzaSyCRLa4LQZWNQBcRCYcIVYA45i9i8zfClqc"); // Place your Google API Key
 
 // Define path to application directory
 defined('APPLICATION_PATH')

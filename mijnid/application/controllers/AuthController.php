@@ -11,8 +11,10 @@ class AuthController extends Zend_Controller_Action
     public function loginAction()
     {
 		//Auth User based on PIN & device ID
-		$pin = $this->getRequest()->getPost('pin');
-		$device_id = $this->getRequest()->getPost('device_id');
+		$raw = $this->getRequest()->getRawBody();
+		$json = Zend_Json::decode($raw);
+		$pin = $json['pin'];
+		$device_id = $json['device_id'];
 		if(!isset($pin) || !isset($device_id)){
 			$this->getResponse()->setHttpResponseCode(400);
 			$data = array('status'=>'FAILED','message'=>'NO_DATA_PROVIDED');
@@ -37,7 +39,7 @@ class AuthController extends Zend_Controller_Action
 		$user->save();
 		
 		//Let the api consumer know it worked.		
-		$data = array('status'=>'SUCCESS','skey'=>$skey);
+		$data = array('status'=>'SUCCESS','skey'=>$skey,'bsn'=>$user->bsn);
 		echo $this->_helper->json($data);
     }
 
@@ -58,7 +60,9 @@ class AuthController extends Zend_Controller_Action
 	* 	Return: user object on success, exit on failure.
 	*/	
 	private function getUser(){
-		$skey = $this->getRequest()->getPost('skey');
+		$raw = $this->getRequest()->getRawBody();
+		$json = Zend_Json::decode($raw);
+		$skey = $json['skey'];
 		$authTable = new Application_Model_DbTable_Auth();
 		$user = $authTable->fetchRow($authTable->select()->where('secret_key=?',$skey));
 		if($user!=null)
