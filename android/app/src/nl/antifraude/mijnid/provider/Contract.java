@@ -32,6 +32,10 @@ public class Contract {
          */
         public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, ENTITY_NAME);
 
+        public static final String MIME_TYPE = "events";
+        public static final String MIME_NAME = "nl.antifraude.mijnid.provider";
+
+
 
         public static final String DESCRIPTION = "description";
         public static final String SHORT_DESCRIPTION = "short_description";

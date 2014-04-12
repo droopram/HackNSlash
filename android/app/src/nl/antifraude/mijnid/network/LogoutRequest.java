@@ -3,8 +3,7 @@ package nl.antifraude.mijnid.network;
 import android.content.Context;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
-import nl.antifraude.mijnid.Installation;
-import nl.antifraude.mijnid.model.CurrentUser;
+import nl.antifraude.mijnid.app.CurrentUser;
 import org.json.JSONException;
 import org.json.JSONObject;
 

@@ -1,8 +1,5 @@
 package nl.antifraude.mijnid.provider;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.net.Uri;
 import com.tojc.ormlite.android.OrmLiteSimpleContentProvider;
 import com.tojc.ormlite.android.framework.MatcherController;
 import com.tojc.ormlite.android.framework.MimeTypeVnd;
@@ -14,7 +11,6 @@ public class Provider extends OrmLiteSimpleContentProvider<DatabaseHelper> {
 
     private static final int URI_CODE_EVENT_MANY = 1;
     private static final int URI_CODE_EVENT_ONE = 2;
-
 
     @Override
     public boolean onCreate() {

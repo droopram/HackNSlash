@@ -1,7 +1,14 @@
 package nl.antifraude.mijnid.network;
 
-/**
- * Created by jozua on 2014/04/12.
- */
-public class GetDataRequest {
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import org.json.JSONObject;
+
+public class GetDataRequest extends JsonObjectRequest {
+
+    private static final String URL = "http://www.hawk-software.com/mijnid/public/auth/get-data";
+
+    public GetDataRequest(Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+        super(URL, null, listener, errorListener);
+    }
 }

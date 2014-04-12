@@ -2,7 +2,7 @@ package nl.antifraude.mijnid;
 
 import android.content.Context;
 import android.provider.Settings;
-import nl.antifraude.mijnid.model.CurrentUser;
+import nl.antifraude.mijnid.app.CurrentUser;
 
 /**
  */
