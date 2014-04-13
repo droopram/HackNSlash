@@ -24,8 +24,6 @@ import java.util.Date;
 @AdditionalAnnotation.DefaultContentMimeTypeVnd(name = Contract.MIME_NAME, type = Contract.Event.MIME_TYPE)
 public class Event {
 
-    private static final String TAG = Event.class.getSimpleName();
-
     @DatabaseField(generatedId = true, columnName = Contract.Event._ID)
     private long id;
     @DatabaseField(columnName = Contract.Event.DESCRIPTION)

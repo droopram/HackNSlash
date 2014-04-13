@@ -16,7 +16,7 @@ import org.json.JSONObject;
 @AdditionalAnnotation.DefaultContentMimeTypeVnd(name = Contract.MIME_NAME, type = Contract.User.MIME_TYPE)
 public class User {
 
-    @DatabaseField(generatedId = true)
+    @DatabaseField(generatedId = true, columnName = Contract.User._ID)
     private long id;
 
     @DatabaseField(columnName = Contract.User.BSN)

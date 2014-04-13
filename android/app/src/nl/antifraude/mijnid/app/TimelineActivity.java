@@ -19,6 +19,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import nl.antifraude.mijnid.CurrentUser;
+import nl.antifraude.mijnid.Installation;
 import nl.antifraude.mijnid.R;
 import nl.antifraude.mijnid.model.Event;
 import nl.antifraude.mijnid.model.User;
@@ -65,6 +66,15 @@ public class TimelineActivity extends Activity implements LoaderManager.LoaderCa
         if (item.getItemId() == R.id.logout) {
             logout();
             return true;
+        } else if (item.getItemId() == R.id.info) {
+            String registrationId = Installation.getRegistrationId(this);
+            String message = "RegistrationId: " + registrationId + "\n"
+                    + "Secret key: " + CurrentUser.fromPreferences(this).getSecretKey() + "\n"
+                    + "BSN: " + CurrentUser.fromPreferences(this).getBsn();
+            new AlertDialog.Builder(this)
+                    .setTitle("Debug informatie")
+                    .setMessage(message)
+                    .show();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -148,7 +158,8 @@ public class TimelineActivity extends Activity implements LoaderManager.LoaderCa
             getContentResolver().delete(Contract.PaspoortEvent.CONTENT_URI, null, null);
             getContentResolver().bulkInsert(Contract.PaspoortEvent.CONTENT_URI, paspoortEventContentValues);
         } catch (JSONException e) {
-            e.printStackTrace();
+            new AlertDialog.Builder(this).setTitle("Error!").setMessage("Could not parse JSON from GetData").show();
+            Log.e(TAG, "Could not parse JSON from GetData", e);
         }
     }
 
@@ -172,6 +183,7 @@ public class TimelineActivity extends Activity implements LoaderManager.LoaderCa
             getContentResolver().bulkInsert(Contract.Event.CONTENT_URI, events);
         } catch (JSONException e) {
             new AlertDialog.Builder(this).setTitle("Error!").setMessage("Could not parse JSON from GetEvents").show();
+            Log.e(TAG, "Could not parse JSON from GetData", e);
         }
     }
 

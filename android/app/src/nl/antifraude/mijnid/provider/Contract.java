@@ -2,6 +2,7 @@ package nl.antifraude.mijnid.provider;
 
 import android.net.Uri;
 import android.provider.BaseColumns;
+import com.j256.ormlite.field.DatabaseField;
 
 /**
  */
@@ -75,6 +76,8 @@ public class Contract {
          */
         public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, ENTITY_NAME);
 
+        public static final String MIME_TYPE = "letters";
+
         public static final String ONDERWERP = "onderwerp";
         public static final String VERZENDDATUM = "verzenddatum";
         public static final String ADRES = "adres";
@@ -90,6 +93,8 @@ public class Contract {
          */
         public static final String ENTITY_NAME = "passport_event";
 
+        public static final String MIME_TYPE = "passport_events";
+
         /**
          * Base URI for the event resource.
          * <p>content://nl.antifraude.mijnid.provider/passport_events</p>
@@ -101,5 +106,27 @@ public class Contract {
         public static final String ONTVANGEN = "ontvangen";
         public static final String BESCHRIJVING = "beschrijving";
         public static final String INSTANTIE_KVK_NR = "instantieKvkNr";
+    }
+
+    public static class Instantie implements BaseColumns {
+        /**
+         * Identifier for the event resource. The entity name is used by
+         * the {@link #CONTENT_URI} to allow access to this resource.
+         */
+        public static final String ENTITY_NAME = "instantie";
+
+        public static final String MIME_TYPE = "instanties";
+
+        /**
+         * Base URI for the event resource.
+         * <p>content://nl.antifraude.mijnid.provider/passport_events</p>
+         */
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, ENTITY_NAME);
+
+        public static final  String NAAM = "naam";
+        public static final  String ADRES = "adres";
+        public static final  String WOONPLAATS = "woonplaats";
+        public static final  String POSTCODE = "postcode";
+        public static final  String KVKNUMMER = "kvknummer";
     }
 }
