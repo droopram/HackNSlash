@@ -182,7 +182,7 @@ class MeController extends Zend_Controller_Action {
 		$data = array (
 				'status' => 'SUCCES',
 				'message' => array(
-					'User'=>$userData,
+					'user'=>$userData,
 					'kvkdata'=>$kvkData,
 					'letters'=>$letterData,
 					'passport_events'=>$passportData,
