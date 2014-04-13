@@ -9,7 +9,6 @@ import android.provider.Settings;
 import android.util.Log;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import nl.antifraude.mijnid.app.CurrentUser;
 
 /**
  */

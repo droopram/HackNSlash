@@ -1,10 +1,16 @@
 package nl.antifraude.mijnid.model;
 
+import android.content.ContentValues;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import nl.antifraude.mijnid.provider.Contract;
+import nl.antifraude.mijnid.util.ParseUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Date;
 
 /**
- * Created by jozua on 2014/04/12.
  */
 @DatabaseTable
 public class Brief {
@@ -15,7 +21,7 @@ public class Brief {
     @DatabaseField
     private String onderwerp;
     @DatabaseField
-    private String verzenddatum; // TODO parse as datum
+    private Date verzenddatum;
     @DatabaseField
     private String adres;
     @DatabaseField
@@ -23,7 +29,7 @@ public class Brief {
     @DatabaseField
     private String plaats;
     @DatabaseField
-    private String prioriteit; // TODO ask is int?
+    private int prioriteit;
 
     public long getId() {
         return id;
@@ -33,47 +39,45 @@ public class Brief {
         return onderwerp;
     }
 
-    public void setOnderwerp(String onderwerp) {
-        this.onderwerp = onderwerp;
-    }
-
-    public String getVerzenddatum() {
+    public Date getVerzenddatum() {
         return verzenddatum;
-    }
-
-    public void setVerzenddatum(String verzenddatum) {
-        this.verzenddatum = verzenddatum;
     }
 
     public String getAdres() {
         return adres;
     }
 
-    public void setAdres(String adres) {
-        this.adres = adres;
-    }
-
     public String getPostcode() {
         return postcode;
-    }
-
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
     }
 
     public String getPlaats() {
         return plaats;
     }
 
-    public void setPlaats(String plaats) {
-        this.plaats = plaats;
-    }
-
-    public String getPrioriteit() {
+    public int getPrioriteit() {
         return prioriteit;
     }
 
-    public void setPrioriteit(String prioriteit) {
-        this.prioriteit = prioriteit;
+    public static Brief fromJson(JSONObject json) throws JSONException {
+        Brief brief = new Brief();
+        brief.onderwerp = json.getString("onderwerp");
+        brief.verzenddatum = ParseUtils.parseDateTime(json.getString("verzenddatum"));
+        brief.adres = json.getString("adres");
+        brief.postcode = json.getString("postcode");
+        brief.plaats = json.getString("plaats");
+        brief.prioriteit = json.getInt("prioriteit");
+        return brief;
+    }
+
+    public ContentValues toContentValues() {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Contract.Brief.ONDERWERP, onderwerp);
+        contentValues.put(Contract.Brief.VERZENDDATUM, verzenddatum.getTime());
+        contentValues.put(Contract.Brief.ADRES, adres);
+        contentValues.put(Contract.Brief.POSTCODE, postcode);
+        contentValues.put(Contract.Brief.PLAATS, plaats);
+        contentValues.put(Contract.Brief.PRIORITEIT, prioriteit);
+        return contentValues;
     }
 }

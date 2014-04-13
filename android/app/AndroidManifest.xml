@@ -4,14 +4,15 @@
           android:versionName="0.1.0"
           android:versionCode="1">
 
-    <permission android:name="nl.antifraude.mijnid.permission.C2D_MESSAGE"
-                android:protectionLevel="signature" />
+    <permission
+        android:name="nl.antifraude.mijnid.permission.C2D_MESSAGE"
+        android:protectionLevel="signature"/>
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="nl.antifraude.mijnid.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <uses-permission android:name="nl.antifraude.mijnid.permission.C2D_MESSAGE"/>
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -43,13 +44,17 @@
 
         <receiver
             android:name=".push.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="nl.antifraude.mijnid" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <category android:name="nl.antifraude.mijnid"/>
             </intent-filter>
         </receiver>
-        <service android:name=".push.GcmIntentService" />
+        <service android:name=".push.GcmIntentService"/>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
 
     </application>
 </manifest>

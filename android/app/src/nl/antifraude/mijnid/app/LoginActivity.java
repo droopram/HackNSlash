@@ -13,6 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import nl.antifraude.mijnid.CurrentUser;
 import nl.antifraude.mijnid.Installation;
 import nl.antifraude.mijnid.R;
 import nl.antifraude.mijnid.network.LoginRequest;
@@ -113,6 +114,7 @@ public class LoginActivity extends Activity {
     private void nextActivity() {
         Intent intent = new Intent(this, TimelineActivity.class);
         startActivity(intent);
+        finish();
     }
 
     /**
@@ -122,8 +124,6 @@ public class LoginActivity extends Activity {
      * shared preferences.
      */
     private void registerInBackground() {
-
-
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... params) {

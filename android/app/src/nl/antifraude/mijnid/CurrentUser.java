@@ -1,4 +1,4 @@
-package nl.antifraude.mijnid.app;
+package nl.antifraude.mijnid;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -26,7 +26,7 @@ public class CurrentUser {
     }
 
     public static void clear(Context context) {
-        getSharedPreferences(context);
+        getSharedPreferences(context).edit().clear().commit();
     }
 
     public static CurrentUser createUser(Context context, String secretKey, String bsn) {

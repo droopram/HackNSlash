@@ -8,7 +8,6 @@ public class Instantie {
 
     @DatabaseField(generatedId = true)
     private long id;
-
     @DatabaseField
     private String naam;
     @DatabaseField
@@ -17,6 +16,6 @@ public class Instantie {
     private String woonplaats;
     @DatabaseField
     private String postcode;
-    @DatabaseField
+    @DatabaseField(uniqueIndex = true)
     private String kvknummer;
 }

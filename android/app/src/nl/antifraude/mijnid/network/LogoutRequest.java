@@ -3,13 +3,13 @@ package nl.antifraude.mijnid.network;
 import android.content.Context;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
-import nl.antifraude.mijnid.app.CurrentUser;
+import nl.antifraude.mijnid.CurrentUser;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LogoutRequest extends JsonObjectRequest {
 
-    private static final String URL = "http://www.hawk-software.com/mijnid/public/auth/login";
+    private static final String URL = "http://www.hawk-software.com/mijnid/public/auth/logout";
 
     public LogoutRequest(Context context, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
         super(URL, wrapRequest(context), listener, errorListener);

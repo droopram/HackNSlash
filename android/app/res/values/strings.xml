@@ -6,4 +6,5 @@
     <string name="play_services_not_installed_toast">Installeer Google Play Services.</string>
     <string name="login_failed_toast">001 - Login mislukt!</string>
     <string name="login_failed_parse_error_toast">002 - Login mislukt!</string>
+    <string name="menu_logout_title">Uitloggen</string>
 </resources>
