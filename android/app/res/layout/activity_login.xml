@@ -3,24 +3,62 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:padding="12dp">
+              android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/pin"
-        style="@style/input_pincode"
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:text="@string/login_pin_label"
+        android:layout_margin="24dp"
         />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        >
+
+        <EditText
+            android:id="@+id/pin1"
+            style="@style/LoginPincodeInParts"
+            android:layout_marginRight="10dp"
+            />
+
+        <EditText
+            android:id="@+id/pin2"
+            style="@style/LoginPincodeInParts"
+            android:layout_marginRight="10dp"
+            />
+
+        <EditText
+            android:id="@+id/pin3"
+            style="@style/LoginPincodeInParts"
+            android:layout_marginRight="10dp"
+            />
+
+        <EditText
+            android:id="@+id/pin4"
+            style="@style/LoginPincodeInParts"
+            android:layout_marginRight="10dp"
+            />
+
+        <EditText
+            android:id="@+id/pin5"
+            style="@style/LoginPincodeInParts"
+            />
+    </LinearLayout>
 
     <Button
         android:id="@+id/submit"
         android:text="@string/login_submit_text"
-        android:layout_width="wrap_content"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:textSize="20sp"
         />
 
 </LinearLayout>

@@ -16,7 +16,8 @@
 
     <uses-sdk
         android:minSdkVersion="16"
-        android:targetSdkVersion="19"/>
+        android:targetSdkVersion="16"
+        android:maxSdkVersion="19"/>
 
     <application
         android:theme="@style/Theme.Mijnid"
@@ -34,6 +35,8 @@
         </activity>
 
         <activity android:name=".app.TimelineActivity"/>
+        <activity android:name=".app.PassportDetailActivity"/>
+        <activity android:name=".app.NotificationActivity"/>
 
         <provider
             android:authorities="nl.antifraude.mijnid.provider"

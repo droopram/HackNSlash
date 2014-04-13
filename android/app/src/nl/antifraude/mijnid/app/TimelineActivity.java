@@ -42,7 +42,7 @@ public class TimelineActivity extends Activity implements LoaderManager.LoaderCa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapter = new TimelineAdapter(this, R.layout.timeline_adapter_item);
+        adapter = new TimelineAdapter(this, R.layout.timeline_item_passport);
 
         setContentView(R.layout.activity_timeline);
         ListView listView = (ListView) findViewById(R.id.list);

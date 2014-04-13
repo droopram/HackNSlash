@@ -7,4 +7,5 @@
     <string name="login_failed_toast">001 - Login mislukt!</string>
     <string name="login_failed_parse_error_toast">002 - Login mislukt!</string>
     <string name="menu_logout_title">Uitloggen</string>
+    <string name="login_pin_label">Voer uw pincode in</string>
 </resources>

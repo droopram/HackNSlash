@@ -20,6 +20,8 @@
 <resources>
 
     <style name="Theme.Mijnid" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+        <item name="android:buttonStyle">@style/ButtonAppTheme</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonAppTheme</item>
         <item name="android:actionBarItemBackground">@drawable/selectable_background_mijnid</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.Mijnid</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Mijnid</item>
@@ -29,8 +31,8 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_mijnid</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_mijnid</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Mijnid</item>
-        
-                <!-- Light.DarkActionBar specific -->
+
+        <!-- Light.DarkActionBar specific -->
         <item name="android:actionBarWidgetTheme">@style/Theme.Mijnid.Widget</item>
 
     </style>
@@ -48,7 +50,7 @@
     </style>
 
     <style name="PopupMenu.Mijnid" parent="@android:style/Widget.Holo.ListPopupWindow">
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_mijnid</item>	
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_mijnid</item>
     </style>
 
     <style name="DropDownListView.Mijnid" parent="@android:style/Widget.Holo.ListView.DropDown">
@@ -64,11 +66,11 @@
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_mijnid</item>
         <item name="android:dropDownSelector">@drawable/selectable_background_mijnid</item>
     </style>
-    
+
     <style name="ProgressBar.Mijnid" parent="@android:style/Widget.Holo.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_mijnid</item>
     </style>
-    
+
     <style name="ActionButton.CloseMode.Mijnid" parent="@android:style/Widget.Holo.ActionButton.CloseMode">
         <item name="android:background">@drawable/btn_cab_done_mijnid</item>
     </style>
@@ -77,6 +79,17 @@
     <style name="Theme.Mijnid.Widget" parent="@android:style/Theme.Holo">
         <item name="android:popupMenuStyle">@style/PopupMenu.Mijnid</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Mijnid</item>
+    </style>
+
+    <style name="ButtonAppTheme" parent="android:Widget.Button">
+        <item name="android:background">@drawable/apptheme_btn_default_holo_dark</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:minWidth">64dip</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="ImageButtonAppTheme" parent="android:Widget.ImageButton">
+        <item name="android:background">@drawable/apptheme_btn_default_holo_dark</item>
     </style>
 
 </resources>

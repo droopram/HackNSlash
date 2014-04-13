@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -18,6 +20,7 @@ import nl.antifraude.mijnid.Installation;
 import nl.antifraude.mijnid.R;
 import nl.antifraude.mijnid.network.LoginRequest;
 import nl.antifraude.mijnid.network.Network;
+import nl.antifraude.mijnid.view.AsteriskTransformationMethod;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,8 +31,45 @@ import java.io.IOException;
 public class LoginActivity extends Activity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
-    private EditText pinView;
+    private EditText pinView1;
+    private EditText pinView2;
+    private EditText pinView3;
+    private EditText pinView4;
+    private EditText pinView5;
     private GoogleCloudMessaging gcm;
+
+    private static class PinWatcher implements TextWatcher {
+        private final EditText next;
+        private final EditText previous;
+
+        public PinWatcher(EditText previous, EditText next) {
+            this.next = next;
+            this.previous = previous;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (s.length() == 1) {
+                if (next != null) {
+                    next.requestFocus();
+                }
+            } else {
+                if (previous != null) {
+                    previous.requestFocus();
+                }
+            }
+        }
+    }
 
     /**
      * Substitute you own sender ID here. This is the project number you got
@@ -57,7 +97,25 @@ public class LoginActivity extends Activity {
         }
 
         setContentView(R.layout.activity_login);
-        pinView = (EditText) findViewById(R.id.pin);
+        pinView1 = (EditText) findViewById(R.id.pin1);
+        pinView2 = (EditText) findViewById(R.id.pin2);
+        pinView3 = (EditText) findViewById(R.id.pin3);
+        pinView4 = (EditText) findViewById(R.id.pin4);
+        pinView5 = (EditText) findViewById(R.id.pin5);
+
+        AsteriskTransformationMethod method = new AsteriskTransformationMethod();
+        pinView1.setTransformationMethod(method);
+        pinView2.setTransformationMethod(method);
+        pinView3.setTransformationMethod(method);
+        pinView4.setTransformationMethod(method);
+        pinView5.setTransformationMethod(method);
+
+        pinView1.addTextChangedListener(new PinWatcher(null, pinView2));
+        pinView2.addTextChangedListener(new PinWatcher(pinView1, pinView3));
+        pinView3.addTextChangedListener(new PinWatcher(pinView2, pinView4));
+        pinView4.addTextChangedListener(new PinWatcher(pinView3, pinView5));
+        pinView5.addTextChangedListener(new PinWatcher(pinView4, null));
+
         findViewById(R.id.submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +131,12 @@ public class LoginActivity extends Activity {
     }
 
     private void login() {
-        String pin = pinView.getText().toString();
+        String pin1 = pinView1.getText().toString();
+        String pin2 = pinView2.getText().toString();
+        String pin3 = pinView3.getText().toString();
+        String pin4 = pinView4.getText().toString();
+        String pin5 = pinView5.getText().toString();
+        String pin = pin1 + pin2 + pin3 + pin4 + pin5;
         Request loginRequest = new LoginRequest(this, pin,
                 new Response.Listener<JSONObject>() {
                     @Override

@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="input_pincode">
-
+    <style name="LoginPincode">
         <item name="android:inputType">numberPassword</item>
         <item name="android:singleLine">true</item>
         <item name="android:hint">@string/pincode_hint</item>
         <item name="android:maxLength">@integer/max_pincode_length</item>
-
     </style>
+
+    <style name="LoginPincodeInParts">
+        <item name="android:inputType">numberPassword</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">#5a5a5a</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">24dp</item>
+    </style>
+
+    <style name="TimelineItemText" parent="android:Widget.TextView">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TimelineItemText.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 
 </resources>

@@ -2,7 +2,6 @@ package nl.antifraude.mijnid.provider;
 
 import android.net.Uri;
 import android.provider.BaseColumns;
-import com.j256.ormlite.field.DatabaseField;
 
 /**
  */
@@ -41,6 +40,7 @@ public class Contract {
         public static final String SHORT_DESCRIPTION = "short_description";
         public static final String TIMESTAMP = "timestamp";
         public static final String PANIC_LEVEL = "panic_level";
+        public static final String EVENT_TYPE = "event_type";
     }
 
     public static class User implements BaseColumns {
@@ -123,10 +123,10 @@ public class Contract {
          */
         public static final Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, ENTITY_NAME);
 
-        public static final  String NAAM = "naam";
-        public static final  String ADRES = "adres";
-        public static final  String WOONPLAATS = "woonplaats";
-        public static final  String POSTCODE = "postcode";
-        public static final  String KVKNUMMER = "kvknummer";
+        public static final String NAAM = "naam";
+        public static final String ADRES = "adres";
+        public static final String WOONPLAATS = "woonplaats";
+        public static final String POSTCODE = "postcode";
+        public static final String KVKNUMMER = "kvknummer";
     }
 }

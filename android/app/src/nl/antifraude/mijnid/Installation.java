@@ -21,7 +21,8 @@ public class Installation {
     private static final String PROPERTY_APP_VERSION = "appVersion";
 
     public static String getAndroidId(Context context) {
-        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+//        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        return "7039a12d8e9e509b";
     }
 
     public static String getSecretKey(Context context) {
