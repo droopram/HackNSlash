@@ -14,6 +14,7 @@ class MeController extends Zend_Controller_Action {
 				$dataRow ['short_desc'] = $event->short_desc;
 				$dataRow ['desc'] = $event->desc;
 				$dataRow ['date'] = $event->date;
+				$dataRow ['panic-level'] = $event->panic_level;
 				array_push ( $data, $dataRow );
 			}
 			$data = array (
@@ -99,6 +100,7 @@ class MeController extends Zend_Controller_Action {
 					$newEvent->short_desc = ucfirst($k)." is veranderd.";
 					$newEvent->desc = ucfirst($k)." is veranderd naar ".$v.".";
 					$newEvent->date = date('Y-m-d H:i:s');
+					$newEvent->timeline = 1;
 					$newEvent->save();
 					
 					$userObj->$k = $v;
@@ -108,6 +110,9 @@ class MeController extends Zend_Controller_Action {
 			
 			
 		}
+		
+		$userData = $userObj->toArray();
+		
 		
 		$letterObj = $letterTable->fetchAll($letterTable->select()->where("bsn = ?", $user->bsn));
 		if ($letterObj != null) {
