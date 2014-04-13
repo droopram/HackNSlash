@@ -152,12 +152,20 @@ class MeController extends Zend_Controller_Action {
 			}
 		}
 		
+		$kvkonuserTable = new Application_Model_DbTable_Kvkonuser();
+		
+		$kvkName = $kvkTable->info('name');
+		$kvkuserName = $kvkonuserTable->info('name');
 		
 		
+		$kvkObj = $kvkTable->fetchAll(
+				$kvkTable->select()->from(array("ok" => $kvkTable->info('name')))
+		->join(array(
+				"ku" => $kvkonuserTable->info("name")
+		),"ok.kvks = ku.kvk"
+		)->where('ku.bsn = ?',$user->bsn)
+				->setIntegrityCheck(false));
 		
-		
-		
-		$kvkObj = $kvkTable->fetchAll($kvkTable->select()->where("bsn = ?", $user->bsn));
 		if ($kvkObj != null) {
 			foreach ( $kvkObj as $kvk ) {
 				$dataRow = array ();
