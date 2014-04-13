@@ -185,7 +185,7 @@ class MeController extends Zend_Controller_Action {
 					'User'=>$userData,
 					'kvkdata'=>$kvkData,
 					'letters'=>$letterData,
-					'passporten'=>$passportData,
+					'passport_events'=>$passportData,
 		) 
 		);
 		
