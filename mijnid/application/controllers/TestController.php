@@ -49,4 +49,43 @@ class TestController extends Zend_Controller_Action
 		
 		
 	}
+	
+	public function createPassportAction(){
+		$raw = $this->getRequest()->getRawBody();
+		$json = Zend_Json::decode($raw);
+		$documentnr = $json['documentnr'];
+		$vervaldatum = $json['vervaldatum'];
+		$kvknummer =$json['kvknummer'];
+		$beschrijving = $json['beschrijving'];
+		$bsn = $json['bsn'];
+		
+		if(!isset($documentnr) || !isset($vervaldatum) || !isset($kvknummer) || !isset($beschrijving) || !isset($bsn)){
+			$this->getResponse()->setHttpResponseCode(400);
+			$data = array('status'=>'FAILED','message'=>'NO_DATA_PROVIDED', 'input'=>$json);
+			echo $this->_helper->json($data);
+			exit();
+		}
+		
+		$passportTable = new Application_Model_DbTable_Passport();
+		$eventTable = new Application_Model_DbTable_Events();
+		
+		$pasportRow = $passportTable->createRow();
+		$pasportRow->bsn = $bsn;
+		$pasportRow->documentnr = $documentnr;
+		$pasportRow->vervaldatum = $vervaldatum;
+		$pasportRow->kvknummer = $kvknummer;
+		$pasportRow->ontvangen = date('Y-m-d H:i:s');
+		$pasportRow->beschrijving = $beschrijving;
+		$pasportRow->save();
+		
+		$event = $eventTable->createRow();
+		$event->bsn = $bsn;
+		$event->short_desc = 'Het initiatief met kvknummer: '.$kvknummer.' heeft uw pasport gebruikt';
+		$event->desc = 'Het initiatief met het kvknummer: '.$kvknummer.' heeft uw pasport gebruikt met de volgende beschrijving: '. $beschrijving;
+		$event->date = date('Y-m-d H:i:s');
+		$event->timeline = 1;
+		$event->panic_level=3;
+		$event->save();
+	}
+
 }
